@@ -195,6 +195,10 @@
         .animate {
             animation: fadeIn 0.8s ease forwards;
         }
+
+        /* chart container */
+        .chart-wrap { position: relative; height: 360px; margin-top: 20px; }
+        @media (max-width: 700px) { .chart-wrap { height: 300px } }
     </style>
 </head>
 <body>
@@ -224,47 +228,102 @@
         </div>
     </section>
 
-    <section class="card animate" style="border-left-color: var(--secondary); animation-delay: 0.4s; padding: 20px;">
-    <h2>📊 Data Statistika Kependudukan Wonosobo</h2>
-    <p>Visualisasi berdasarkan data Badan Pusat Statistik (BPS) Kabupaten Wonosobo:</p>
+  <section class="card animate" style="border-left-color: var(--secondary); animation-delay: 0.4s; padding: 20px; font-family: sans-serif;">
+    <h2>📊 Data Kependudukan Wonosobo</h2>
+    <p>Data berikut adalah ringkasan tahunan (jumlah jiwa) beserta keterangan sumber / status.</p>
 
-    <div style="position: relative; height:300px; width:100%; margin-top: 20px;">
-        <canvas id="demografiChart"></canvas>
+    <div class="chart-wrap">
+        <canvas id="trenPendudukChart"></canvas>
     </div>
 
-    <div style="margin-top: 20px; font-size: 0.9em; color: #555;">
-        <p><strong>Analisis Singkat:</strong></p>
-        <ul style="list-style-type: '📍 '; padding-left: 20px;">
-            <li><b>Bonus Demografi:</b> Dominasi usia produktif (15-64 tahun) mencapai ~70%, peluang besar untuk kemajuan daerah!</li>
-            <li><b>Pernikahan Dini:</b> Angka dispensasi nikah terus ditekan melalui kampanye <i>"Sekolah Yes, Nikah No!"</i>.</li>
-            <li><b>GenRe:</b> Penguatan edukasi TRIAD KRR untuk menjaga kualitas SDM masa depan.</li>
-        </ul>
+    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+    <div style="margin-top: 12px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.95em; text-align: left;">
+            <thead>
+                <tr style="background-color: #f8f9fc;">
+                    <th style="padding: 10px; border-bottom: 2px solid #e3e6f0;">Tahun</th>
+                    <th style="padding: 10px; border-bottom: 2px solid #e3e6f0;">Jumlah Penduduk (Jiwa)</th>
+                    <th style="padding: 10px; border-bottom: 2px solid #e3e6f0;">Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style="padding:8px">2020</td><td style="padding:8px">879.124</td><td style="padding:8px">Hasil Sensus Penduduk 2020 (BPS)</td></tr>
+                <tr><td style="padding:8px">2021</td><td style="padding:8px">886.640</td><td style="padding:8px">Data Proyeksi/Laju Pertumbuhan</td></tr>
+                <tr><td style="padding:8px">2022</td><td style="padding:8px">893.303</td><td style="padding:8px">Data BPS (Wonosobo Dalam Angka)</td></tr>
+                <tr><td style="padding:8px">2023</td><td style="padding:8px">917.472</td><td style="padding:8px">Data Konsolidasi Bersih (DKB) Semester II</td></tr>
+                <tr><td style="padding:8px">2024</td><td style="padding:8px">941.530</td><td style="padding:8px">Data Disdukcapil (Semester I)</td></tr>
+                <tr><td style="padding:8px">2025</td><td style="padding:8px">948.738</td><td style="padding:8px">Data Real-time (Juni 2025)</td></tr>
+                <tr><td style="padding:8px">2026</td><td style="padding:8px">~958.000</td><td style="padding:8px">Proyeksi (Berdasarkan tren pertumbuhan)</td></tr>
+            </tbody>
+        </table>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script>
-        const ctx = document.getElementById('demografiChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
+        // data sesuai format yang Anda minta
+        const labels = ['2020','2021','2022','2023','2024','2025','2026'];
+        const values = [879124, 886640, 893303, 917472, 941530, 948738, 958000];
+        const notes  = [
+            'Hasil Sensus Penduduk 2020 (BPS)',
+            'Data Proyeksi/Laju Pertumbuhan',
+            'Data BPS (Wonosobo Dalam Angka)',
+            'Data Konsolidasi Bersih (DKB) Semester II',
+            'Data Disdukcapil (Semester I)',
+            'Data Real-time (Juni 2025)',
+            'Proyeksi (Berdasarkan tren pertumbuhan)'
+        ];
+
+        const ctx = document.getElementById('trenPendudukChart').getContext('2d');
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
             data: {
-                labels: ['Usia Produktif (15-64)', 'Usia Belum Produktif (0-14)', 'Usia Tidak Produktif (65+)'],
+                labels: labels,
                 datasets: [{
-                    label: 'Persentase Populasi',
-                    data: [70.2, 23.5, 6.3], // Data estimasi BPS Wonosobo
+                    label: 'Jumlah Penduduk (Jiwa)',
+                    data: values,
                     backgroundColor: [
-                        '#4e73df', // Primary (Produktif)
-                        '#1cc88a', // Success
-                        '#e74a3b'  // Danger
+                        '#2563eb','#22c55e','#f59e0b','#4f46e5','#10b981','#f97316'
                     ],
-                    hoverOffset: 4
+                    borderColor: 'rgba(15,23,42,0.12)',
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    maxBarThickness: 48
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: { padding: 6 },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#334155' }
+                    },
+                    y: {
+                        beginAtZero: false,
+                        suggestedMin: Math.min(...values) - 8000,
+                        suggestedMax: Math.max(...values) + 8000,
+                        ticks: {
+                            color: '#334155',
+                            callback: v => Intl.NumberFormat('id-ID').format(v)
+                        },
+                        grid: { color: 'rgba(148,163,184,0.08)' }
+                    }
+                },
                 plugins: {
-                    legend: {
-                        position: 'bottom'
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => `${Intl.NumberFormat('id-ID').format(ctx.raw)} jiwa`,
+                            afterBody: function(context) {
+                                const idx = context[0].dataIndex;
+                                return notes[idx];
+                            }
+                        },
+                        bodySpacing: 6,
+                        padding: 10
                     }
                 }
             }
