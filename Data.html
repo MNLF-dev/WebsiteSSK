@@ -271,7 +271,93 @@
         });
     </script>
 </section>
+<section class="card animate" style="border-left-color: var(--secondary); animation-delay: 0.4s; padding: 20px; font-family: sans-serif;">
+    <h2>📊 Tren Kependudukan & Ekonomi Wonosobo</h2>
+    <p>Visualisasi data historis dan proyeksi berdasarkan indikator makro Kabupaten Wonosobo:</p>
 
+    <div style="position: relative; height:350px; width:100%; margin-top: 20px;">
+        <canvas id="trenPendudukChart"></canvas>
+    </div>
+
+    <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+    <div style="margin-top: 20px;">
+        <h3 style="font-size: 1.1em; color: #333; margin-bottom: 15px;">📈 Indikator Ekonomi Makro</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; text-align: left;">
+            <thead>
+                <tr style="background-color: #f8f9fc;">
+                    <th style="padding: 10px; border-bottom: 2px solid #e3e6f0;">Indikator Ekonomi</th>
+                    <th style="padding: 10px; border-bottom: 2px solid #e3e6f0;">Capaian/Target</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Pertumbuhan Ekonomi (2024-2025)</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;"><b>~5.12%</b></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Laju Inflasi</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;"><b>2.85% (Terkendali)</b></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Sektor Unggulan</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Pertanian, Pariwisata, & Pengolahan</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-top: 20px; font-size: 0.85em; color: #666; background: #fef9e7; padding: 15px; border-radius: 8px;">
+        <p><strong>Insight Ekonomi:</strong> Wonosobo menunjukkan pemulihan pasca-pandemi yang stabil dengan fokus pada digitalisasi UMKM dan pengembangan destinasi wisata Dieng sebagai motor penggerak ekonomi utama daerah.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('trenPendudukChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024', '2025*', '2026*'],
+                datasets: [{
+                    label: 'Jumlah Penduduk (Ribu Jiwa)',
+                    // Data estimasi berdasarkan tren pertumbuhan BPS Wonosobo (~0.9% - 1.1% per tahun)
+                    data: [897.8, 906.1, 915.4, 924.3, 933.2, 942.1, 951.0],
+                    backgroundColor: '#4e73df',
+                    borderColor: '#2e59d9',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 880,
+                        title: {
+                            display: true,
+                            text: 'Ribu Jiwa'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            footer: (items) => {
+                                return items[0].label >= '2025' ? '*Data Proyeksi' : '';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</section>
     <section class="card animate" style="border-left-color: var(--accent); animation-delay: 0.6s;">
         <h2>📚 Literasi Kependudukan</h2>
         <p>Di sudut kelas XID, Pojok Kependudukan hadir sebagai sumber ilmu. Berikut ringkasan materi yang wajib kamu tahu:</p>
