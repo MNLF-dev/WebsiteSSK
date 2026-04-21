@@ -359,6 +359,83 @@
         <p style="margin-top: 10px; color: var(--accent);">- Salam GenRe! -</p>
     </div>
 
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 10px;">
+
+    <section class="card animate" style="border-left: 5px solid #e74a3b; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h2 style="font-size: 1.2em; color: #333;">📉 Prevalensi Stunting</h2>
+        <p style="font-size: 0.85em; color: #666;">Data E-PPGBM Wonosobo & Target Nasional</p>
+        <div style="height: 250px;"><canvas id="stuntingChart"></canvas></div>
+        <p style="margin-top: 10px; font-size: 0.9em;"><b>Status:</b> Wonosobo berhasil menekan angka stunting dari 20% (2021) menjadi <b>15,26%</b> (Feb 2024).</p>
+    </section>
+
+    <section class="card animate" style="border-left: 5px solid #1cc88a; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h2 style="font-size: 1.2em; color: #333;">💰 Ekonomi & Kemiskinan</h2>
+        <p style="font-size: 0.85em; color: #666;">Persentase Penduduk Miskin (BPS 2024-2025)</p>
+        <div style="height: 250px;"><canvas id="ekonomiChart"></canvas></div>
+        <p style="margin-top: 10px; font-size: 0.9em;"><b>Trend:</b> Terjadi penurunan signifikan sebesar 1,94% di tahun 2025, angka terendah dalam sejarah Wonosobo.</p>
+    </section>
+
+    <section class="card animate" style="border-left: 5px solid #4e73df; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h2 style="font-size: 1.2em; color: #333;">🕌 Keberagaman Agama</h2>
+        <p style="font-size: 0.85em; color: #666;">Komposisi Penduduk Berdasarkan Religi</p>
+        <div style="height: 250px;"><canvas id="agamaChart"></canvas></div>
+        <p style="margin-top: 10px; font-size: 0.9em;"><b>Karakteristik:</b> Wonosobo memiliki basis religiusitas yang kuat dengan mayoritas Muslim (98%+).</p>
+    </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // --- 1. Konfigurasi Chart Stunting (Bar Chart) ---
+    new Chart(document.getElementById('stuntingChart'), {
+        type: 'bar',
+        data: {
+            labels: ['2021', '2023', '2024 (Feb)', 'Target Nas'],
+            datasets: [{
+                label: 'Prevalensi (%)',
+                data: [20.2, 17.5, 15.26, 14.0],
+                backgroundColor: ['#f6c23e', '#f6c23e', '#e74a3b', '#1cc88a']
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    // --- 2. Konfigurasi Chart Ekonomi (Line Chart) ---
+    new Chart(document.getElementById('ekonomiChart'), {
+        type: 'line',
+        data: {
+            labels: ['2023', '2024', '2025 (Estimasi)'],
+            datasets: [{
+                label: 'Angka Kemiskinan (%)',
+                data: [15.58, 15.28, 13.34],
+                borderColor: '#1cc88a',
+                fill: true,
+                backgroundColor: 'rgba(28, 200, 138, 0.1)',
+                tension: 0.3
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    // --- 3. Konfigurasi Chart Agama (Pie Chart) ---
+    new Chart(document.getElementById('agamaChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Islam', 'Kristen', 'Katolik', 'Lainnya'],
+            datasets: [{
+                data: [98.5, 0.8, 0.5, 0.2],
+                backgroundColor: ['#4e73df', '#36b9cc', '#f6c23e', '#858796']
+            }]
+        },
+        options: { 
+            responsive: true, 
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom' } }
+        }
+    });
+</script>
+
     <section class="card animate" style="border-left-color: var(--danger); animation-delay: 1s;">
         <h2>🚀 Cara Menjadi Remaja "SATRIA"</h2>
         <p>Sebagai bagian dari SMAN 1 Wonosobo, kita harus memiliki jiwa SATRIA:</p>
