@@ -381,6 +381,51 @@
         <div style="height: 250px;"><canvas id="agamaChart"></canvas></div>
         <p style="margin-top: 10px; font-size: 0.9em;"><b>Karakteristik:</b> Wonosobo memiliki basis religiusitas yang kuat dengan mayoritas Muslim (98%+).</p>
     </section>
+    
+    <section class="card animate" style="border-left: 5px solid #f6c23e; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-top: 20px;">
+    <h2 style="font-size: 1.2em; color: #333;">👫 Komposisi Jenis Kelamin</h2>
+    <p style="font-size: 0.85em; color: #666;">Perbandingan Penduduk Laki-laki & Perempuan (Jiwa)</p>
+    
+    <div style="height: 250px;">
+        <canvas id="genderChart"></canvas>
+    </div>
+
+    <div style="margin-top: 15px; display: flex; justify-content: space-around; text-align: center;">
+        <div>
+            <span style="color: #4e73df; font-weight: bold; font-size: 1.1em;">468.230</span>
+            <p style="font-size: 0.8em; color: #666;">Laki-laki</p>
+        </div>
+        <div style="border-left: 1px solid #ddd;"></div>
+        <div>
+            <span style="color: #f6679a; font-weight: bold; font-size: 1.1em;">451.640</span>
+            <p style="font-size: 0.8em; color: #666;">Perempuan</p>
+        </div>
+    </div>
+    <p style="margin-top: 10px; font-size: 0.9em;">Wonosobo terus memiliki rasio jenis kelamin (sex ratio) di atas 100, yang berarti populasi laki-laki sedikit lebih banyak dibanding perempuan.</p>
+</section>
+
+<script>
+    new Chart(document.getElementById('genderChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Laki-laki', 'Perempuan'],
+            datasets: [{
+                data: [468230, 451640],
+                backgroundColor: ['#4e73df', '#f6679a'], // Biru untuk pria, Pink/Rose untuk wanita
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+</script>
 
 </div>
 
